@@ -1,6 +1,8 @@
 # Leaflet.js e Django - Estudos e Integração
 
-![Header](screenshots/header.gif)
+<div align="center">
+  <img src="screenshots/header.gif" alt="Header">
+</div>
 
 Este repositório é um projeto de estudos para compreender como integrar o [Leaflet.js](https://leafletjs.com/) com o [Django](https://www.djangoproject.com/). O objetivo principal é criar uma simulação de movimentação de veículos e exibi-la em um mapa interativo com atualizações em tempo real.
 
@@ -79,3 +81,8 @@ O comando `python manage.py simulate_vehicle_movement` é responsável por rando
 ## Tela Inicial
 
 O projeto exibe um mapa interativo com marcadores representando os veículos. As rotas dos veículos são traçadas à medida que eles se movem, proporcionando uma visualização clara e em tempo real.
+
+
+## Referências
+
+Este projeto foi baseado em um minicurso do [canal BugBytes](https://www.youtube.com/@bugbytes3923) no YouTube. O vídeo pode ser acessado neste [link](https://www.youtube.com/watch?v=vBd9Yy3tQPo).

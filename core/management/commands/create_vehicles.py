@@ -10,8 +10,8 @@ class Command(BaseCommand):
         for _ in range(NUM_VEHICLES_TO_GENERATE):
             # -22.913755052155462, -43.22928637460225
             Vehicle.objects.create(
-                latitude=random.uniform(-20,-24),
-                longitude=random.uniform(-42,-46)
+                latitude=random.uniform(-22.82,-22.92),
+                longitude=random.uniform(-43.31,-43.21)
             )
 
         print(f"{Vehicle.objects.count()} vehicles now in the database")

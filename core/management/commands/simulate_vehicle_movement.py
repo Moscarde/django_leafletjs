@@ -8,4 +8,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Define the range of latitude and longitude variation
-        raise NotImplementedError
+        lat_lon_var = 0.001
+
+        while True:
+            print("Simulating vehicle movement")
+
+            for vehicle in Vehicle.objects.all():
+                vehicle.latitude += random.uniform(-lat_lon_var, lat_lon_var)
+                vehicle.longitude += random.uniform(-lat_lon_var, lat_lon_var)
+                vehicle.save()
+            
+            time.sleep(5)

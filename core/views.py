@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from core.models import Vehicle
@@ -7,3 +8,9 @@ from core.models import Vehicle
 def index(request):
     context = {"vehicles": list(Vehicle.objects.values("latitude", "longitude"))}
     return render(request, "index.html", context)
+
+
+def vehicle_positions(request):
+    return JsonResponse( {
+        "vehicle": list(Vehicle.objects.values("latitude", "longitude"))
+    })

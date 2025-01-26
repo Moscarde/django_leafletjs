@@ -50,6 +50,7 @@ def generate_random_phone():
     return f"(21) {random.randint(90000, 99999)}-{random.randint(1000, 9999)}"
 
 df_locations["phone"] = [generate_random_phone() for _ in range(len(df_locations))]
+df_locations["status"] = "Não Entregue"
 
 # Final output
 locations_result = df_locations[["address", "name", "phone", "latitude", "longitude"]]

@@ -1,48 +1,77 @@
 console.log("Hello from script.js");
 
-document.addEventListener('DOMContentLoaded', () => {
-    function createMap(center, zoom) {
-        const map = L.map('map').setView(center, zoom);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }).addTo(map);
-        return map;
-    }
+document.addEventListener("DOMContentLoaded", () => {
+	let polyline = null; // Armazena a linha do trajeto
+	let currentMarker = null; // Marcador para a posição atual do veículo
+	let routeCoordinates = []; // Histórico das coordenadas do trajeto
+	const vehicleIcon = L.AwesomeMarkers.icon({
+		markerColor: "black",
+		iconColor: "white",
+		icon: "motorcycle",
+		prefix: "fa",
+		extraClasses: "fa-rotate-0"
+	});
 
-    function updateMarkers(markersGroup) {
-        fetch('/vehicle-positions')
-            .then(response => response.json())
-            .then(data => {
-                const prevLatLons = [];
+    const houseIcon = L.AwesomeMarkers.icon({
+		markerColor: "black",
+		iconColor: "white",
+		icon: "house",
+		prefix: "fa",
+		extraClasses: "fa-rotate-0"
+	});
 
-                markersGroup.eachLayer(layer => {
-                    if (layer instanceof L.Marker) {
-                        prevLatLons.push(layer.getLatLng());
-                        markersGroup.removeLayer(layer);
-                    }
-                });
+	function createMap(center, zoom) {
+		const map = L.map("map").setView(center, zoom);
+		L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+			maxZoom: 19,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+		return map;
+	}
 
-                data.vehicle.forEach((vehicle, i) => {
-                    const newLatLon = [vehicle.latitude, vehicle.longitude];
-                    L.marker(newLatLon).addTo(markersGroup);
+	function updateRoute(map) {
+		fetch("/route-coordinates")
+			.then((response) => response.json())
+			.then((data) => {
+				const newRoute = data.route;
 
-                    if (prevLatLons[i]) {
-                        const prevLatLon = [prevLatLons[i].lat, prevLatLons[i].lng];
-                        L.polyline([prevLatLon, newLatLon], { color: "red" }).addTo(markersGroup);
-                    }
-                });
-            })
-            .catch(error => console.error('Erro ao atualizar os marcadores:', error));
-    }
+				// Adiciona apenas as coordenadas novas
+				const newPoints = newRoute.slice(routeCoordinates.length);
 
-    const map = createMap([-22.85, -43.28], 12);
-    const markersFeaturesGroup = L.featureGroup().addTo(map);
-    const vehicles = JSON.parse(document.getElementById('vehicles-json').textContent);
+				if (newPoints.length > 0) {
+					// Atualiza o histórico de coordenadas
+					routeCoordinates = routeCoordinates.concat(newPoints);
 
-    vehicles.forEach(vehicle => {
-        L.marker([vehicle.latitude, vehicle.longitude]).addTo(markersFeaturesGroup);
-    });
+					// Atualiza ou cria a polyline
+					if (polyline) {
+						polyline.setLatLngs(routeCoordinates.map((point) => [point.latitude, point.longitude]));
+					} else {
+						polyline = L.polyline(
+							routeCoordinates.map((point) => [point.latitude, point.longitude]),
+							{
+								color: "red",
+								weight: 4
+							}
+						).addTo(map);
+					}
 
-    setInterval(() => updateMarkers(markersFeaturesGroup), 5000);
+					// Atualiza o marcador na última posição
+					const lastPoint = [newRoute[newRoute.length - 1].latitude, newRoute[newRoute.length - 1].longitude];
+					if (currentMarker) {
+						currentMarker.setLatLng(lastPoint);
+					} else {
+						currentMarker = L.marker(lastPoint, {
+							icon: vehicleIcon
+						}).addTo(map);
+					}
+				}
+			})
+			.catch((error) => console.error("Erro ao atualizar a rota:", error));
+	}
+
+	const map = createMap([-22.92942, -43.55495], 14);
+
+	// Atualiza a rota e o marcador a cada 5 segundos
+	updateRoute(map);
+	setInterval(() => updateRoute(map), 5000);
 });

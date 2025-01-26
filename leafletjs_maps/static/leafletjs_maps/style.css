@@ -1,6 +1,14 @@
 body {
     background-color: #f8f9fa;
 }
+
 #map {
     margin: auto;
+}
+
+.myDivIcon {
+    text-align: center;
+    /* Horizontally center the text (icon) */
+    line-height: 20px;
+    /* Vertically center the text (icon) */
 }

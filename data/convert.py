@@ -7,7 +7,7 @@ df = pd.read_csv("data/data_google_my_maps.csv").iloc[:8]
 df.drop(columns=["tessellate"], inplace=True)
 
 # Split data into routes and locations
-df_locations = df.iloc[1:].reset_index(drop=True)
+df_locations = df.iloc[2:-1].reset_index(drop=True)
 df_routes = df.iloc[:1].reset_index(drop=True)
 
 # Extract coordinates for routes
@@ -50,8 +50,8 @@ def generate_random_phone():
     return f"(21) {random.randint(90000, 99999)}-{random.randint(1000, 9999)}"
 
 df_locations["phone"] = [generate_random_phone() for _ in range(len(df_locations))]
-df_locations["status"] = "Não Entregue"
+df_locations["status"] = "Aguardando entrega"
 
 # Final output
-locations_result = df_locations[["address", "name", "phone", "latitude", "longitude"]]
+locations_result = df_locations[["address", "name", "phone", "latitude", "longitude", "status"]]
 locations_result.to_csv("data/locations.csv", index=False)

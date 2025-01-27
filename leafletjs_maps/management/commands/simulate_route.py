@@ -22,6 +22,6 @@ class Command(BaseCommand):
                     longitude=float(row[1]),
                 )
                 route.save()
-                time.sleep(1)
+                time.sleep(.1)
                 print("Adicionando coordenada:", row[0], row[1])
         self.stdout.write(self.style.SUCCESS('Rotas finalizada com sucesso.'))

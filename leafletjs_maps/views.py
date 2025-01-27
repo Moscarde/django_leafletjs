@@ -6,7 +6,10 @@ from .models import Location, Route
 
 # Create your views here.
 def index(request):
-    context = {}
+    locations = Location.objects.values(
+        "id", "address", "name", "phone", "latitude", "longitude", "status"
+    )
+    context = {"destinations": list(locations)}
     return render(request, "index.html", context)
 
 

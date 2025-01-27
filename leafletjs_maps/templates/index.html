@@ -11,10 +11,14 @@
         <!-- Mapa renderizado pelo Leaflet -->
     </div>
 
-    {{ vehicles|json_script:"vehicles-json" }}
+    {{ destinations|json_script:"destinations-json" }}
 
     <div class="mt-3 text-center">
         <span class="badge bg-success">Atualizações automáticas a cada 5 segundos</span>
+    </div>
+
+    <div class="mt-3 text-center leaflet">
+        <img src="https://leafletjs.com/docs/images/logo.png">  
     </div>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 # Leaflet.js e Django - Estudos e Integração
 
 <div align="center">
-  <img src="screenshots/header.gif" alt="Header">
+  <img src="screenshots/map.gif" alt="Header">
 </div>
 
 Este repositório é um projeto de estudos para compreender como integrar o [Leaflet.js](https://leafletjs.com/) com o [Django](https://www.djangoproject.com/). O objetivo principal é criar uma simulação de movimentação de veículos e exibi-la em um mapa interativo com atualizações em tempo real.

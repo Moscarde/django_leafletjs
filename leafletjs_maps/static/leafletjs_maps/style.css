@@ -1,14 +1,22 @@
 body {
-    background-color: #f8f9fa;
+    margin: 0; /* Remove margens para o background cobrir toda a página */
+    height: 100vh; /* Garante que o body tenha a altura total da janela */
+    background-color: #f8f9fa; /* Cor de fundo caso a imagem demore a carregar */
+    background-image: url('bg.png'); /* Substitua pelo caminho da sua imagem */
+    background-size: cover; /* Garante que a imagem cubra toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita a repetição */
 }
+
 
 #map {
     margin: auto;
 }
 
-.myDivIcon {
-    text-align: center;
-    /* Horizontally center the text (icon) */
-    line-height: 20px;
-    /* Vertically center the text (icon) */
+#map p {
+    margin: 8px 0;
+}
+
+.leaflet img {
+    width: 400px;
 }

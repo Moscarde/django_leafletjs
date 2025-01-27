@@ -8,9 +8,8 @@ Este repositório é um projeto de estudos para compreender como integrar o [Lea
 
 ## Funcionalidades
 
-- Criação automática de 5 veículos com localização inicial aleatória.
-- Atualização da localização dos veículos a cada 5 segundos, simulando o movimento dentro de um intervalo predefinido.
-- Exibição das rotas dos veículos em um mapa utilizando Leaflet.js.
+- Simulação de movimentação de veículos em um mapa interativo.
+- Atualização de estado dos pontos de entrega de acordo com a posição dos veículos.
 
 ## Tecnologias Utilizadas
 
@@ -51,7 +50,7 @@ python manage.py migrate
 Utilize o comando personalizado para criar os veículos iniciais:
 
 ```bash
-python manage.py create_vehicles
+python manage.py create_locations
 ```
 
 ### 6. Inicie o Servidor de Desenvolvimento
@@ -63,7 +62,7 @@ python manage.py runserver
 ### 7. Acesse o comando de simular a movimentação dos veículos (em outro terminal)
 
 ```bash
-python manage.py simulate_vehicle_movement
+python manage.py simulate_route
 ```
 
 ### 8. Acesse o Sistema
@@ -76,11 +75,11 @@ http://127.0.0.1:8000/
 
 ## Simulação de Movimento dos Veículos
 
-O comando `python manage.py simulate_vehicle_movement` é responsável por randomizar a localização dos veículos a cada 5 segundos. Esse processo é integrado à aplicação para que o mapa seja atualizado automaticamente.
+O comando `python manage.py simulate_route` é responsável por criar a simulação da progressão de uma rota de entrega de pedidos. Seu progresso é resetado toda vez que o comando é executado.
 
 ## Tela Inicial
 
-O projeto exibe um mapa interativo com marcadores representando os veículos. As rotas dos veículos são traçadas à medida que eles se movem, proporcionando uma visualização clara e em tempo real.
+O projeto exibe um mapa interativo com marcadores representando o veículo e os ponto de entrega. As rotas dos veículos são traçadas à medida que eles se movem, proporcionando uma visualização clara e em tempo real.
 
 
 ## Referências
